@@ -1,5 +1,7 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
+import { FaArrowLeft } from "react-icons/fa";
 
 const StoryDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -16,13 +18,24 @@ const StoryDetailsPage = async ({ params }) => {
   const story = data.stories.find((item) => item.id === Number(id));
 
   if (!story) {
-    return <h2>Not Found page</h2>;
+    return <h2>গল্পটি খুঁজে পাওয়া যায়নি</h2>;
   }
 
   return (
-    <div className="container mx-auto my-12">
+    <div className="container mx-auto my-12 px-4">
+      {/* হোমে ফিরে যান বাটন */}
+      <div className="mb-6">
+        <Link
+          href="/"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-xs sm:text-sm font-medium bg-zinc-950 text-zinc-300 border border-zinc-800 hover:border-red-600/60 hover:text-red-500 shadow-[0_0_15px_rgba(220,38,38,0.12)] transition-all duration-300 group"
+        >
+          <FaArrowLeft className="text-red-500 group-hover:-translate-x-1 transition-transform duration-300" />
+          <span>হোমে ফিরে যান</span>
+        </Link>
+      </div>
+
       {/* Image */}
-      <div className="relative w-full h-75 overflow-hidden rounded-xl bg-black">
+      <div className="relative w-full h-75 overflow-hidden rounded-xl bg-black border border-gray-900 flex items-center justify-center">
         {/* Background Image */}
         <Image
           src={story.image}
@@ -33,21 +46,25 @@ const StoryDetailsPage = async ({ params }) => {
           className="hidden sm:block object-cover blur-md scale-110 opacity-45"
         />
 
-        {/* Main Image */}
-        <Image
-          src={story.image}
-          alt={story.title}
-          fill
-          priority
-          sizes="100vw"
-          className="relative z-10 object-contain rounded-xl border border-gray-900"
-        />
+        {/* Main Image Wrapper: এটি ছবির আসল প্রস্থ অনুযায়ী ফিট হবে */}
+        <div className="relative z-10 h-full w-fit overflow-hidden rounded-xl">
+          <img
+            src={story.image}
+            alt={story.title}
+            className="h-full w-auto object-contain scale-[1.03] block"
+          />
+        </div>
       </div>
+
       {/* Name */}
       <h2 className="my-7 font-oswald font-bold text-[22px] sm:text-[35px] text-red-600">
         {story.title}
       </h2>
-      <p className="text-justify text-[14px] sm:text-[16px]">{story.content}</p>
+
+      {/* Story Content */}
+      <p className="whitespace-pre-line text-justify text-[14px] sm:text-[16px] leading-relaxed text-zinc-300">
+        {story.content}
+      </p>
     </div>
   );
 };

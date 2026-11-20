@@ -15,7 +15,7 @@ const BookCard = ({ books }) => {
             </span>
           </h2>
           <p className="text-white text-center text-xs sm:text-sm mt-1">
-            রাতের নিস্তব্ধতায় রোমাঞ্চকর ও ভয়ংকর সব গল্পের সংগ্রহ
+            রাতের নিস্তব্ধতায় রোমাঞ্চকর ও ভয়ংকর সব গল্পের সংগ্রহ
           </p>
         </div>
       </div>
@@ -25,19 +25,20 @@ const BookCard = ({ books }) => {
         {books?.map((book) => (
           <div
             key={book.id}
-            className="card w-full bg-zinc-950 border border-zinc-800/80 shadow-[0_0_20px_rgba(220,38,38,0.12)] hover:border-red-600/60 transition-all duration-300 overflow-hidden group"
+            className="card flex flex-col w-full bg-zinc-950 border border-zinc-800/80 shadow-[0_0_20px_rgba(220,38,38,0.12)] hover:border-red-600/60 transition-all duration-300 overflow-hidden group"
           >
-            <figure className="w-full overflow-hidden">
+            {/* ইমেজ কন্টেইনার: scale-[1.02] সাদা দাগ ঢেকে দেবে */}
+            <figure className="w-full overflow-hidden bg-black">
               <Image
                 src={book.image}
                 alt={book.title}
                 width={800}
                 height={450}
-                className="w-full h-auto object-contain group-hover:scale-105 transition-transform duration-500"
+                className="w-full h-auto object-contain scale-[1.02] group-hover:scale-[1.07] transition-transform duration-500"
               />
             </figure>
 
-            <div className="card-body p-5">
+            <div className="card-body flex flex-col flex-1 p-5">
               <div className="flex justify-between items-center gap-2">
                 {/* বামপাশের ক্যাটাগরি ব্যাজ */}
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-medium bg-red-950/70 text-red-400 border border-red-800/60 shadow-[0_0_10px_rgba(220,38,38,0.15)]">
@@ -55,7 +56,7 @@ const BookCard = ({ books }) => {
                 </span>
               </div>
 
-              {/* এখানে সরাসরি book.title কাজ করবে */}
+              {/* গল্পের শিরোনাম */}
               <h2 className="text-xl sm:text-2xl font-bold text-white group-hover:text-red-500 transition-colors mt-1">
                 {book.title}
               </h2>
@@ -64,7 +65,8 @@ const BookCard = ({ books }) => {
                 {book.description}
               </p>
 
-              <div className="mt-5">
+              {/* বাটন সবসময় কার্ডের একদম নিচে সমান লাইনে থাকবে */}
+              <div className="mt-auto pt-5">
                 <Link
                   href={`/story/${book.id}`}
                   className="btn btn-block cursor-pointer bg-red-600 hover:bg-red-700 text-white border-none rounded-xl shadow-[0_0_15px_rgba(220,38,38,0.4)]"
