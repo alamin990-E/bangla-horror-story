@@ -59,6 +59,16 @@ const SignupPage = () => {
     }
   };
 
+  const handleGoogle = async () => {
+    const { error } = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+    if (error) {
+      toast.error("Google দিয়ে লগইন করতে সমস্যা হয়েছে!");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#08090d] text-white flex flex-col items-center justify-center px-3 sm:px-4 py-6 sm:py-10">
       {/* Signup Card */}
@@ -180,6 +190,7 @@ const SignupPage = () => {
           {/* Google Signup UI */}
           <button
             type="button"
+            onClick={handleGoogle}
             className="w-full py-2.5 sm:py-3 px-3 sm:px-4 text-sm sm:text-base rounded-lg bg-red-700 hover:bg-red-900 cursor-pointer text-white font-medium transition flex items-center justify-center gap-2 sm:gap-3"
           >
             <svg

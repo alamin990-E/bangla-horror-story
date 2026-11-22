@@ -1,3 +1,4 @@
+import ErrorPage from "@/component/ErrorPage";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -18,7 +19,7 @@ const StoryDetailsPage = async ({ params }) => {
   const story = data.stories.find((item) => item.id === Number(id));
 
   if (!story) {
-    return <h2>গল্পটি খুঁজে পাওয়া যায়নি</h2>;
+    return <ErrorPage></ErrorPage>;
   }
 
   return (

@@ -51,6 +51,16 @@ const SingInPage = () => {
     }
   };
 
+  const handleGoogle = async () => {
+    const { error } = await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+    if (error) {
+      toast.error("Google দিয়ে লগইন করতে সমস্যা হয়েছে!");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#08090d] text-white flex flex-col  items-center justify-center px-3 sm:px-4 py-6 sm:py-10">
       {/* Signup Card */}
@@ -93,7 +103,7 @@ const SingInPage = () => {
                 <input
                   type={showPass ? "text" : "password"}
                   name="password"
-                 placeholder="কমপক্ষে ৮ অক্ষর"
+                  placeholder="কমপক্ষে ৮ অক্ষর"
                   required
                   className="w-full px-3 sm:px-4 py-2.5 sm:py-3 text-sm sm:text-base rounded-lg bg-[#1a1c25] border border-white/10 outline-none focus:border-red-500 transition"
                 />
@@ -118,7 +128,7 @@ const SingInPage = () => {
               disabled={isLoading}
               className="w-full py-2.5 sm:py-3 text-sm sm:text-base rounded-lg cursor-pointer bg-red-600 hover:bg-red-700 font-semibold transition"
             >
-             {isLoading?"সাইন ইন হচ্ছে..." : "সাইন ইন করুন"}
+              {isLoading ? "সাইন ইন হচ্ছে..." : "সাইন ইন করুন"}
             </button>
           </form>
 
@@ -132,6 +142,7 @@ const SingInPage = () => {
           {/* Google SingIn */}
           <button
             type="button"
+            onClick={handleGoogle}
             className="w-full py-2.5 sm:py-3 px-3 sm:px-4 text-sm sm:text-base rounded-lg bg-red-700 hover:bg-red-900 cursor-pointer text-white font-medium transition flex items-center justify-center gap-2 sm:gap-3"
           >
             <svg
@@ -167,7 +178,7 @@ const SingInPage = () => {
                 href="/singup"
                 className="text-red-400 hover:text-red-300 font-medium"
               >
-                সাইন আপ করুন
+                সাইন ইন করুন
               </Link>
             </p>
           </div>
